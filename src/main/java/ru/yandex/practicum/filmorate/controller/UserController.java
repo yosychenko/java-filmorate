@@ -6,16 +6,11 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
-    private final Map<Integer, User> users = new HashMap<>();
-    private int idCounter = 0;
-
+public class UserController extends AbstractController<User> {
     @PostMapping
     public User createUser(@Valid @RequestBody User newUser) {
         newUser.setId(++idCounter);
@@ -30,7 +25,7 @@ public class UserController {
             users.put(newUser.getId(), newUser);
             return newUser;
         }
-        throw new UserNotFoundException();
+        throw new UserNotFoundException(String.format("Пользователь c ID=%s не найден.", newUser.getId()));
     }
 
     @GetMapping

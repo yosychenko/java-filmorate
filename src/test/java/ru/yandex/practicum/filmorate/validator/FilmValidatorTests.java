@@ -4,6 +4,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.yandex.practicum.filmorate.controller.FilmController;
+import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import javax.validation.ConstraintViolation;
@@ -145,12 +147,13 @@ public class FilmValidatorTests {
                 .duration(100)
                 .build();
 
-        Set<ConstraintViolation<Film>> violations = validator.validate(film);
-        assertFalse(violations.isEmpty());
+        FilmController filmController = new FilmController();
 
-        ConstraintViolation<Film> violation = violations.stream().findFirst().get();
-        assertEquals(violation.getPropertyPath().toString(), "releaseDate");
-        assertEquals(violation.getMessage(), "Дата релиза должна быть не раньше 28 декабря 1895 года.");
+        ValidationException ex = assertThrows(
+                ValidationException.class,
+                () -> filmController.createFilm(film)
+        );
+        assertEquals(ex.getMessage(), "Дата релиза должна быть не раньше 28 декабря 1895 года.");
     }
 
     @Test
