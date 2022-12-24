@@ -25,7 +25,7 @@ public class UserController extends AbstractController<User> {
             users.put(newUser.getId(), newUser);
             return newUser;
         }
-        throw new UserNotFoundException(String.format("Пользователь c ID=%s не найден.", newUser.getId()));
+        throw new UserNotFoundException(newUser.getId());
     }
 
     @GetMapping

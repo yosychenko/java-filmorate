@@ -29,7 +29,7 @@ public class FilmController extends AbstractController<Film> {
             films.put(newFilm.getId(), newFilm);
             return newFilm;
         }
-        throw new FilmNotFoundException(String.format("Фильм c ID=%s не найден.", newFilm.getId()));
+        throw new FilmNotFoundException(newFilm.getId());
     }
 
     @GetMapping
