@@ -6,11 +6,15 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
 public class User {
-    private int id;
+    private final Set<Long> friends = new HashSet<>();
+    private final Set<Long> likedMovies = new HashSet<>();
+    private long id;
     @NotBlank(message = "Электронная почта не может быть пустой.")
     @Email(message = "Некорректный формат электронной почты.")
     private String email;

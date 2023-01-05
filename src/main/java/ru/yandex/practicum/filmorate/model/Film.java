@@ -8,11 +8,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
 public class Film {
-    private int id;
+    private final Set<Long> likedByUsers = new HashSet<>();
+    private long id;
     @NotBlank(message = "Название фильма не должно быть пустым.")
     private String name;
     @NotNull(message = "Описание фильма должно быть указано.")
@@ -22,4 +25,8 @@ public class Film {
     private LocalDate releaseDate;
     @Min(value = 1, message = "Продолжительность фильма должна быть положительной и больше 0.")
     private int duration;
+
+    public int getLikesCount() {
+        return likedByUsers.size();
+    }
 }
