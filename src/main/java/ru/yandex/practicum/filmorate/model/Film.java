@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,7 +15,8 @@ import java.util.Set;
 @Data
 @Builder
 public class Film {
-    private final Set<Long> likedByUsers = new HashSet<>();
+    @JsonIgnore
+    private final Set<Long> likes = new HashSet<>();
     private long id;
     @NotBlank(message = "Название фильма не должно быть пустым.")
     private String name;
@@ -27,6 +29,6 @@ public class Film {
     private int duration;
 
     public int getLikesCount() {
-        return likedByUsers.size();
+        return likes.size();
     }
 }

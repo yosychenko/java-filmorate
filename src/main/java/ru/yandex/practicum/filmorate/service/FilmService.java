@@ -29,16 +29,14 @@ public class FilmService {
         User user = userStorage.getUserById(userId);
         Film film = filmStorage.getFilmById(id);
 
-        user.getLikedMovies().add(film.getId());
-        film.getLikedByUsers().add(user.getId());
+        film.getLikes().add(user.getId());
     }
 
     public void deleteLike(long id, long userId) {
         User user = userStorage.getUserById(userId);
         Film film = filmStorage.getFilmById(id);
 
-        user.getLikedMovies().remove(film.getId());
-        film.getLikedByUsers().remove(user.getId());
+        film.getLikes().remove(user.getId());
     }
 
     public List<Film> getTopNPopularFilms(Integer count) {

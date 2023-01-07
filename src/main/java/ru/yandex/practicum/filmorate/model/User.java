@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
@@ -12,8 +13,8 @@ import java.util.Set;
 @Data
 @Builder
 public class User {
+    @JsonIgnore
     private final Set<Long> friends = new HashSet<>();
-    private final Set<Long> likedMovies = new HashSet<>();
     private long id;
     @NotBlank(message = "Электронная почта не может быть пустой.")
     @Email(message = "Некорректный формат электронной почты.")
