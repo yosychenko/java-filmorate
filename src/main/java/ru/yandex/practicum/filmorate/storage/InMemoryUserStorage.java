@@ -4,44 +4,29 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
-public class InMemoryUserStorage implements UserStorage {
-    private final Map<Long, User> users = new HashMap<>();
-    private long idCounter = 0;
+public class InMemoryUserStorage extends AbstractStorage<User> implements UserStorage {
 
     @Override
     public User createUser(User newUser) {
         newUser.setId(++idCounter);
-        users.put(newUser.getId(), newUser);
-        return newUser;
+        return super.createRecord(newUser.getId(), newUser);
     }
 
     @Override
     public User updateUser(User newUser) {
-        User existingUser = users.get(newUser.getId());
-        if (existingUser != null) {
-            users.put(newUser.getId(), newUser);
-            return newUser;
-        }
-        throw new UserNotFoundException(newUser.getId());
+        return super.updateRecord(newUser.getId(), newUser, new UserNotFoundException(newUser.getId()));
     }
 
     @Override
     public User getUserById(long id) {
-        User user = users.get(id);
-        if (user == null) {
-            throw new UserNotFoundException(id);
-        }
-        return user;
+        return super.getRecordById(id, new UserNotFoundException(id));
     }
 
     @Override
     public List<User> getAllUsers() {
-        return new ArrayList<>(users.values());
+        return super.getAllRecords();
     }
 }
