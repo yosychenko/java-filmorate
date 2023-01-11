@@ -1,40 +1,64 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/films")
-public class FilmController extends AbstractController<Film> {
+public class FilmController {
+
+    private final FilmService filmService;
+    private final FilmStorage filmStorage;
+
+    @Autowired
+    public FilmController(FilmService filmService, FilmStorage filmStorage) {
+        this.filmService = filmService;
+        this.filmStorage = filmStorage;
+    }
+
     @PostMapping
     public Film createFilm(@Valid @RequestBody Film newFilm) {
         validate(newFilm);
-        newFilm.setId(++idCounter);
-        films.put(newFilm.getId(), newFilm);
-        return newFilm;
+        return filmStorage.createFilm(newFilm);
     }
 
     @PutMapping
     public Film updateFilm(@Valid @RequestBody Film newFilm) {
         validate(newFilm);
-        Film existingFilm = films.get(newFilm.getId());
-        if (existingFilm != null) {
-            films.put(newFilm.getId(), newFilm);
-            return newFilm;
-        }
-        throw new FilmNotFoundException(newFilm.getId());
+        return filmStorage.updateFilm(newFilm);
+    }
+
+    @GetMapping("/{id}")
+    public Film getFilmById(@PathVariable long id) {
+        return filmStorage.getFilmById(id);
     }
 
     @GetMapping
     public List<Film> getAllFilms() {
-        return new ArrayList<>(films.values());
+        return filmStorage.getAllFilms();
+    }
+
+    @PutMapping("/{id}/like/{userId}")
+    public void addLike(@PathVariable long id, @PathVariable long userId) {
+        filmService.addLike(id, userId);
+    }
+
+    @DeleteMapping("/{id}/like/{userId}")
+    public void deleteLike(@PathVariable long id, @PathVariable long userId) {
+        filmService.deleteLike(id, userId);
+    }
+
+    @GetMapping("/popular")
+    public List<Film> getTopNPopularFilms(@RequestParam(required = false) Integer count) {
+        return filmService.getTopNPopularFilms(count);
     }
 
     private void validate(Film film) {
