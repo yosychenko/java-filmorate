@@ -1,0 +1,47 @@
+film
+-
+id INT PK
+mpa_rating_id INT FK >- dict_mpa_rating.id
+name TEXT
+description VARCHAR(200)
+release_date DATE
+duration INT
+
+user
+-
+id INT PK
+email TEXT
+login TEXT
+name TEXT NULLABLE
+birthday DATE
+
+dict_genre
+-
+id INT PK
+genre TEXT
+
+dict_mpa_rating
+-
+id INT PK
+rating TEXT
+
+dict_friendship_status
+-
+id INT PK
+status TEXT
+
+mtm_film_genre
+-
+film_id INT PK FK >- film.id
+genre_id INT PK FK >- dict_genre.id
+
+mtm_user_user_friendship
+-
+user_1_id INT PK FK >- user.id
+user_2_id INT PK FK >- user.id
+friendship_status_id INT FK >- dict_friendship_status.id
+
+mtm_user_film_likes
+-
+user_id INT PK FK >- user.id
+film_id INT PK FK >- film.id
