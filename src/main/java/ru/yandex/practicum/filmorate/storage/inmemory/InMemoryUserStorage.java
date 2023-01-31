@@ -1,12 +1,13 @@
-package ru.yandex.practicum.filmorate.storage;
+package ru.yandex.practicum.filmorate.storage.inmemory;
 
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.util.List;
 
-@Component
+@Component("InMemoryUserStorage")
 public class InMemoryUserStorage extends AbstractStorage<User> implements UserStorage {
 
     @Override

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.util.Set;
 public class User {
     @JsonIgnore
     private final Set<Long> friends = new HashSet<>();
+    @Id
     private long id;
     @NotBlank(message = "Электронная почта не может быть пустой.")
     @Email(message = "Некорректный формат электронной почты.")

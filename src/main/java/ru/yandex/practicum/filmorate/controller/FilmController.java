@@ -1,11 +1,13 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.dao.DbGenreStorage;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -18,10 +20,17 @@ public class FilmController {
     private final FilmService filmService;
     private final FilmStorage filmStorage;
 
+    private final DbGenreStorage dbGenreStorage;
+
     @Autowired
-    public FilmController(FilmService filmService, FilmStorage filmStorage) {
+    public FilmController(
+            FilmService filmService,
+            @Qualifier("DbFilmStorage") FilmStorage filmStorage,
+            DbGenreStorage dbGenreStorage
+    ) {
         this.filmService = filmService;
         this.filmStorage = filmStorage;
+        this.dbGenreStorage = dbGenreStorage;
     }
 
     @PostMapping

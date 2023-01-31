@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
@@ -17,7 +18,9 @@ public class UserController {
     private final UserStorage userStorage;
 
     @Autowired
-    public UserController(UserService userService, UserStorage userStorage) {
+    public UserController(
+            UserService userService,
+            @Qualifier("DbUserStorage") UserStorage userStorage) {
         this.userService = userService;
         this.userStorage = userStorage;
     }
