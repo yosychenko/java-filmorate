@@ -5,6 +5,7 @@ import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
+import java.util.Collection;
 import java.util.List;
 
 @Component("InMemoryUserStorage")
@@ -27,7 +28,7 @@ public class InMemoryUserStorage extends AbstractStorage<User> implements UserSt
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public Collection<User> getAllUsers() {
         return super.getAllRecords();
     }
 }

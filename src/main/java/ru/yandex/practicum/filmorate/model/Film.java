@@ -32,6 +32,7 @@ public class Film {
     private int duration;
 
     private List<Genre> genres;
+    @NotNull(message = "MPA рейтинг фильма должен быть указан.")
     private MPARating mpa;
 
     public int getLikesCount() {

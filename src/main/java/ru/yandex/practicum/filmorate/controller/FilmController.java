@@ -11,6 +11,7 @@ import ru.yandex.practicum.filmorate.storage.dao.DbGenreStorage;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -20,17 +21,13 @@ public class FilmController {
     private final FilmService filmService;
     private final FilmStorage filmStorage;
 
-    private final DbGenreStorage dbGenreStorage;
-
     @Autowired
     public FilmController(
             FilmService filmService,
-            @Qualifier("DbFilmStorage") FilmStorage filmStorage,
-            DbGenreStorage dbGenreStorage
+            @Qualifier("DbFilmStorage") FilmStorage filmStorage
     ) {
         this.filmService = filmService;
         this.filmStorage = filmStorage;
-        this.dbGenreStorage = dbGenreStorage;
     }
 
     @PostMapping
@@ -51,7 +48,7 @@ public class FilmController {
     }
 
     @GetMapping
-    public List<Film> getAllFilms() {
+    public Collection<Film> getAllFilms() {
         return filmStorage.getAllFilms();
     }
 

@@ -1,9 +1,6 @@
 package ru.yandex.practicum.filmorate.storage.inmemory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractStorage<T> {
     private final Map<Long, T> storage = new HashMap<>();
@@ -31,7 +28,7 @@ public abstract class AbstractStorage<T> {
         return record;
     }
 
-    public List<T> getAllRecords() {
+    public Collection<T> getAllRecords() {
         return new ArrayList<>(storage.values());
     }
 }

@@ -5,6 +5,7 @@ import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
+import java.util.Collection;
 import java.util.List;
 
 @Component("InMemoryFilmStorage")
@@ -27,7 +28,7 @@ public class InMemoryFilmStorage extends AbstractStorage<Film> implements FilmSt
     }
 
     @Override
-    public List<Film> getAllFilms() {
+    public Collection<Film> getAllFilms() {
         return super.getAllRecords();
     }
 }
