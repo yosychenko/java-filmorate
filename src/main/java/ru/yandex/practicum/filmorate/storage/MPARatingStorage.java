@@ -2,10 +2,10 @@ package ru.yandex.practicum.filmorate.storage;
 
 import ru.yandex.practicum.filmorate.model.MPARating;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface MPARatingStorage {
-    List<MPARating> getAllMPARatings();
+    Collection<MPARating> getAllMPARatings();
 
     MPARating getMPARatingById(long id);
 }

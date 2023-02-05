@@ -23,13 +23,13 @@ public class DbGenreStorage implements GenreStorage {
 
     @Override
     public Collection<Genre> getAllGenres() {
-        return jdbcTemplate.query("SELECT id, genre FROM dict_genre", new GenreMapper());
+        return jdbcTemplate.query("SELECT id, name FROM dict_genre", new GenreMapper());
     }
 
     @Override
     public Genre getGenreById(long id) {
         try {
-            return jdbcTemplate.queryForObject("SELECT id, genre FROM dict_genre WHERE id = ?", new GenreMapper(), id);
+            return jdbcTemplate.queryForObject("SELECT id, name FROM dict_genre WHERE id = ?", new GenreMapper(), id);
         } catch (EmptyResultDataAccessException ex) {
             throw new GenreNotFoundException(id);
         }

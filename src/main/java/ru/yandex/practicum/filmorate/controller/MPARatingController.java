@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.model.MPARating;
 import ru.yandex.practicum.filmorate.storage.MPARatingStorage;
 
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/mpa")
@@ -22,7 +22,7 @@ public class MPARatingController {
     }
 
     @GetMapping()
-    public List<MPARating> getAllMPARatings() {
+    public Collection<MPARating> getAllMPARatings() {
         return mpaRatingStorage.getAllMPARatings();
     }
 

@@ -13,7 +13,7 @@ public class GenreMapper implements RowMapper<Genre> {
     public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {
         return Genre.builder()
                 .id(rs.getLong("id"))
-                .name(rs.getString("genre"))
+                .name(rs.getString("name"))
                 .build();
     }
 }

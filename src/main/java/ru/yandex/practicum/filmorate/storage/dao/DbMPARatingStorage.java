@@ -23,13 +23,13 @@ public class DbMPARatingStorage implements MPARatingStorage {
 
     @Override
     public List<MPARating> getAllMPARatings() {
-        return jdbcTemplate.query("SELECT id, rating FROM dict_mpa_rating", new MPARatingMapper());
+        return jdbcTemplate.query("SELECT id, name FROM dict_mpa_rating", new MPARatingMapper());
     }
 
     @Override
     public MPARating getMPARatingById(long id) {
         try {
-            return jdbcTemplate.queryForObject("SELECT id, rating FROM dict_mpa_rating WHERE id  = ?", new MPARatingMapper(), id);
+            return jdbcTemplate.queryForObject("SELECT id, name FROM dict_mpa_rating WHERE id  = ?", new MPARatingMapper(), id);
         } catch (EmptyResultDataAccessException ex) {
             throw new MPARatingNotFoundException(id);
         }

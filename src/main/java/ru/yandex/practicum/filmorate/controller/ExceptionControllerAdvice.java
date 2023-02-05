@@ -42,7 +42,11 @@ class ExceptionControllerAdvice {
             FilmNotFoundException.class,
             UserNotFoundException.class,
             GenreNotFoundException.class,
-            MPARatingNotFoundException.class
+            MPARatingNotFoundException.class,
+            UserFilmAddLikeException.class,
+            UserUpdateFriendException.class,
+            UserFilmDeleteLikeException.class,
+            UserDeleteFriendException.class
     })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> handleNotFoundExceptions(RuntimeException ex) {

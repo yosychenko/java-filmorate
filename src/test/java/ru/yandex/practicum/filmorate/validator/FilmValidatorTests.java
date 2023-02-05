@@ -4,14 +4,12 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
-import ru.yandex.practicum.filmorate.storage.UserStorage;
-import ru.yandex.practicum.filmorate.storage.inmemory.InMemoryFilmStorage;
-import ru.yandex.practicum.filmorate.storage.inmemory.InMemoryUserStorage;
+import ru.yandex.practicum.filmorate.storage.dao.DbFilmStorage;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -152,9 +150,8 @@ public class FilmValidatorTests {
                 .duration(100)
                 .build();
 
-        UserStorage userStorage = new InMemoryUserStorage();
-        FilmStorage filmStorage = new InMemoryFilmStorage();
-        FilmController filmController = new FilmController(new FilmService(filmStorage, userStorage), filmStorage);
+        FilmStorage filmStorage = new DbFilmStorage(new JdbcTemplate());
+        FilmController filmController = new FilmController(filmStorage);
 
         ValidationException ex = assertThrows(
                 ValidationException.class,

@@ -12,7 +12,7 @@ public class MPARatingMapper implements RowMapper<MPARating> {
     public MPARating mapRow(ResultSet rs, int rowNum) throws SQLException {
         return MPARating.builder()
                 .id(rs.getLong("id"))
-                .rating(rs.getString("rating"))
+                .name(rs.getString("name"))
                 .build();
     }
 }

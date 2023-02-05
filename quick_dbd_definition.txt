@@ -18,17 +18,17 @@ birthday DATE
 dict_genre
 -
 id INT PK
-genre TEXT
+name TEXT
 
 dict_mpa_rating
 -
 id INT PK
-rating TEXT
+name TEXT
 
 dict_friendship_status
 -
 id INT PK
-status TEXT
+name TEXT
 
 mtm_film_genre
 -
