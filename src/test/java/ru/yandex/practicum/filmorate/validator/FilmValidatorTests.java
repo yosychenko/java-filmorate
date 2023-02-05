@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.MPARating;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.dao.DbFilmStorage;
 
@@ -43,6 +44,7 @@ public class FilmValidatorTests {
                 .description("description")
                 .releaseDate(LocalDate.of(2000, 1, 1))
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -60,6 +62,7 @@ public class FilmValidatorTests {
                 .description("description")
                 .releaseDate(LocalDate.of(2000, 1, 1))
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -72,6 +75,7 @@ public class FilmValidatorTests {
                 .name("name")
                 .releaseDate(LocalDate.of(2000, 1, 1))
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -89,6 +93,7 @@ public class FilmValidatorTests {
                 .description("rmihvqqrkbgzgajusfxsitwmaodwiizmekutncxilkynnwtprliozpvtixhrjaphvqeqwoqaffmqchpedlfoamtongueswtvlbcnbvwskirpmnukgyljiyhofxswrlyavnnvmkwsjtekdcrvtccqwnhkgdtgjmfjuizwmnymiryupsjvkxavhnbnewycrgocyffnomglg")
                 .releaseDate(LocalDate.of(2000, 1, 1))
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -106,6 +111,7 @@ public class FilmValidatorTests {
                 .description("mihvqqrkbgzgajusfxsitwmaodwiizmekutncxilkynnwtprliozpvtixhrjaphvqeqwoqaffmqchpedlfoamtongueswtvlbcnbvwskirpmnukgyljiyhofxswrlyavnnvmkwsjtekdcrvtccqwnhkgdtgjmfjuizwmnymiryupsjvkxavhnbnewycrgocyffnomglg")
                 .releaseDate(LocalDate.of(2000, 1, 1))
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -119,6 +125,7 @@ public class FilmValidatorTests {
                 .description("description")
                 .releaseDate(LocalDate.of(2000, 1, 1))
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -131,6 +138,7 @@ public class FilmValidatorTests {
                 .name("name")
                 .description("description")
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -148,6 +156,7 @@ public class FilmValidatorTests {
                 .description("description")
                 .releaseDate(LocalDate.of(1700, 1, 1))
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         FilmStorage filmStorage = new DbFilmStorage(new JdbcTemplate());
@@ -167,6 +176,7 @@ public class FilmValidatorTests {
                 .description("description")
                 .releaseDate(LocalDate.of(1895, 12, 28))
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -180,6 +190,7 @@ public class FilmValidatorTests {
                 .description("description")
                 .releaseDate(LocalDate.of(2000, 1, 1))
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -192,6 +203,7 @@ public class FilmValidatorTests {
                 .name("name")
                 .description("description")
                 .releaseDate(LocalDate.of(2000, 1, 1))
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -209,6 +221,7 @@ public class FilmValidatorTests {
                 .description("description")
                 .releaseDate(LocalDate.of(2000, 1, 1))
                 .duration(-200)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -226,6 +239,7 @@ public class FilmValidatorTests {
                 .description("description")
                 .releaseDate(LocalDate.of(2000, 1, 1))
                 .duration(100)
+                .mpa(MPARating.builder().id(1).name("mpa").build())
                 .build();
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
