@@ -31,9 +31,9 @@ public class DbUserStorage implements UserStorage {
 
     @Override
     public User createUser(User newUser) {
-        // Вставим пользователя в таблицу user
+        // Вставим пользователя в таблицу users
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName("user")
+                .withTableName("users")
                 .usingGeneratedKeyColumns("id");
         long generatedUserId = simpleJdbcInsert.executeAndReturnKey(
                 Map.of(
@@ -50,9 +50,9 @@ public class DbUserStorage implements UserStorage {
 
     @Override
     public User updateUser(User newUser) {
-        // Обновим пользователя в таблице user
+        // Обновим пользователя в таблице users
         int rowsAffected = jdbcTemplate.update(
-                "UPDATE user SET email = ?, login = ?, name = ?, birthday = ? WHERE id = ?",
+                "UPDATE users SET email = ?, login = ?, name = ?, birthday = ? WHERE id = ?",
                 newUser.getEmail(),
                 newUser.getLogin(),
                 newUser.getName(),
@@ -72,7 +72,7 @@ public class DbUserStorage implements UserStorage {
         // Получим пользователя по его ID
         try {
             return jdbcTemplate.queryForObject(
-                    "SELECT id, email, login, name, birthday FROM user WHERE id = ?",
+                    "SELECT id, email, login, name, birthday FROM users WHERE id = ?",
                     new UserMapper(),
                     id
             );
@@ -85,7 +85,7 @@ public class DbUserStorage implements UserStorage {
     public List<User> getAllUsers() {
         // Получим всех пользователей
         return jdbcTemplate.query(
-                "SELECT id, email, login, name, birthday FROM user",
+                "SELECT id, email, login, name, birthday FROM users",
                 new UserMapper()
         );
     }
@@ -127,7 +127,7 @@ public class DbUserStorage implements UserStorage {
                 "       u.login," +
                 "       u.name," +
                 "       u.birthday " +
-                "FROM user u " +
+                "FROM users u " +
                 "JOIN mtm_user_user_friendship friends ON u.id = friends.user_2_id " +
                 "WHERE friends.user_1_id = ? ";
 
@@ -141,7 +141,7 @@ public class DbUserStorage implements UserStorage {
                 "       u.login," +
                 "       u.name," +
                 "       u.birthday " +
-                "FROM user u " +
+                "FROM users u " +
                 "JOIN (" +
                 "    SELECT user_2_id AS friend_id " +
                 "    FROM mtm_user_user_friendship " +
