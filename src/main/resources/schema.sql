@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS film
     description   TEXT NOT NULL,
     release_date  DATE NOT NULL,
     duration      INT  NOT NULL,
+    rate          INT  NOT NULL DEFAULT 0,
     CONSTRAINT pk_film PRIMARY KEY (id)
 );
 

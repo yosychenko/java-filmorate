@@ -34,7 +34,8 @@ public class DbFilmStorage implements FilmStorage {
         // Вставим фильм в таблицу film
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("film")
-                .usingGeneratedKeyColumns("id");
+                .usingGeneratedKeyColumns("id")
+                .usingColumns("mpa_rating_id", "name", "description", "release_date", "duration");
 
         try {
             long generatedFilmId = simpleJdbcInsert.executeAndReturnKey(
@@ -203,11 +204,6 @@ public class DbFilmStorage implements FilmStorage {
                 "       f.release_date," +
                 "       f.duration " +
                 "FROM film f " +
-                "         LEFT JOIN (SELECT film_id," +
-                "                      COUNT(user_id) AS cnt_likes " +
-                "               FROM mtm_user_film_likes " +
-                "               GROUP BY film_id" +
-                "         ) AS likes ON f.id = likes.film_id " +
                 "         LEFT JOIN (" +
                 "            SELECT mtm_fg.film_id," +
                 "                   listagg(mtm_fg.genre_id, ',') WITHIN GROUP (ORDER BY mtm_fg.genre_id) AS genres_ids," +
@@ -217,7 +213,7 @@ public class DbFilmStorage implements FilmStorage {
                 "            GROUP BY mtm_fg.film_id " +
                 "         ) AS fg ON f.id = fg.film_id " +
                 "         LEFT JOIN dict_mpa_rating AS mpa_rating ON f.mpa_rating_id = mpa_rating.id " +
-                "ORDER BY cnt_likes DESC " +
+                "ORDER BY f.rate DESC " +
                 "LIMIT ?;";
 
         return jdbcTemplate.query(sql, new FilmMapper(), count != null ? count : TOP_N_DEFAULT_VALUE);

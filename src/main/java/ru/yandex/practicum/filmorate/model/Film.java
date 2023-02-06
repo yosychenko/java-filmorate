@@ -29,4 +29,6 @@ public class Film {
     private List<Genre> genres;
     @NotNull(message = "MPA рейтинг фильма должен быть указан.")
     private MPARating mpa;
+
+    private int rate;
 }

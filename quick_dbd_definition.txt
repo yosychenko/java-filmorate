@@ -3,9 +3,10 @@ film
 id INT PK
 mpa_rating_id INT FK >- dict_mpa_rating.id
 name TEXT
-description VARCHAR(200)
+description TEXT
 release_date DATE
 duration INT
+rate INT
 
 users
 -
