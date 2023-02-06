@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.LikesStorage;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -15,9 +16,12 @@ import java.util.Collection;
 public class FilmController {
     private final FilmStorage filmStorage;
 
+    private final LikesStorage likesStorage;
+
     @Autowired
-    public FilmController(FilmStorage filmStorage) {
+    public FilmController(FilmStorage filmStorage, LikesStorage likesStorage) {
         this.filmStorage = filmStorage;
+        this.likesStorage = likesStorage;
     }
 
     @PostMapping
@@ -44,12 +48,12 @@ public class FilmController {
 
     @PutMapping("/{id}/like/{userId}")
     public void addLike(@PathVariable long id, @PathVariable long userId) {
-        filmStorage.addLike(id, userId);
+        likesStorage.addLike(id, userId);
     }
 
     @DeleteMapping("/{id}/like/{userId}")
     public void deleteLike(@PathVariable long id, @PathVariable long userId) {
-        filmStorage.deleteLike(id, userId);
+        likesStorage.deleteLike(id, userId);
     }
 
     @GetMapping("/popular")

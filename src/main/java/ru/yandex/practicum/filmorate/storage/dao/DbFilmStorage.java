@@ -9,8 +9,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.exception.MPARatingNotFoundException;
-import ru.yandex.practicum.filmorate.exception.UserFilmAddLikeException;
-import ru.yandex.practicum.filmorate.exception.UserFilmDeleteLikeException;
 import ru.yandex.practicum.filmorate.mapper.FilmMapper;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
@@ -190,34 +188,6 @@ public class DbFilmStorage implements FilmStorage {
                 "         LEFT JOIN dict_mpa_rating AS mpa_rating ON f.mpa_rating_id = mpa_rating.id";
 
         return jdbcTemplate.query(sql, new FilmMapper());
-    }
-
-    @Override
-    public void addLike(long id, long userId) {
-        // Добавим лайк указанному фильму от указанного пользователя
-        try {
-            jdbcTemplate.update(
-                    "MERGE INTO mtm_user_film_likes KEY(user_id, film_id) VALUES (?, ?)",
-                    userId,
-                    id
-            );
-        } catch (DataAccessException ex) {
-            throw new UserFilmAddLikeException(id, userId);
-        }
-    }
-
-    @Override
-    public void deleteLike(long id, long userId) {
-        // Удалим лайк
-        int rowsAffected = jdbcTemplate.update(
-                "DELETE FROM mtm_user_film_likes WHERE user_id = ? AND film_id = ?",
-                userId,
-                id
-        );
-
-        if (rowsAffected == 0) {
-            throw new UserFilmDeleteLikeException(id, userId);
-        }
     }
 
     @Override

@@ -12,12 +12,4 @@ public interface UserStorage {
     User getUserById(long id);
 
     Collection<User> getAllUsers();
-
-    void addFriend(long id, long friendId);
-
-    void deleteFriend(long id, long friendId);
-
-    Collection<User> getFriends(long id);
-
-    Collection<User> getCommonFriends(long id, long otherId);
 }

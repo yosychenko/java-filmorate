@@ -10,7 +10,9 @@ import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.MPARating;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.LikesStorage;
 import ru.yandex.practicum.filmorate.storage.dao.DbFilmStorage;
+import ru.yandex.practicum.filmorate.storage.dao.DbLikesStorage;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -160,7 +162,8 @@ public class FilmValidatorTests {
                 .build();
 
         FilmStorage filmStorage = new DbFilmStorage(new JdbcTemplate());
-        FilmController filmController = new FilmController(filmStorage);
+        LikesStorage likesStorage = new DbLikesStorage(new JdbcTemplate());
+        FilmController filmController = new FilmController(filmStorage, likesStorage);
 
         ValidationException ex = assertThrows(
                 ValidationException.class,
