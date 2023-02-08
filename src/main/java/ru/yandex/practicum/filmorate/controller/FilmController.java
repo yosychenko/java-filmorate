@@ -4,24 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.LikesStorage;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/films")
 public class FilmController {
-
-    private final FilmService filmService;
     private final FilmStorage filmStorage;
 
+    private final LikesStorage likesStorage;
+
     @Autowired
-    public FilmController(FilmService filmService, FilmStorage filmStorage) {
-        this.filmService = filmService;
+    public FilmController(FilmStorage filmStorage, LikesStorage likesStorage) {
         this.filmStorage = filmStorage;
+        this.likesStorage = likesStorage;
     }
 
     @PostMapping
@@ -42,23 +42,23 @@ public class FilmController {
     }
 
     @GetMapping
-    public List<Film> getAllFilms() {
+    public Collection<Film> getAllFilms() {
         return filmStorage.getAllFilms();
     }
 
     @PutMapping("/{id}/like/{userId}")
     public void addLike(@PathVariable long id, @PathVariable long userId) {
-        filmService.addLike(id, userId);
+        likesStorage.addLike(id, userId);
     }
 
     @DeleteMapping("/{id}/like/{userId}")
     public void deleteLike(@PathVariable long id, @PathVariable long userId) {
-        filmService.deleteLike(id, userId);
+        likesStorage.deleteLike(id, userId);
     }
 
     @GetMapping("/popular")
-    public List<Film> getTopNPopularFilms(@RequestParam(required = false) Integer count) {
-        return filmService.getTopNPopularFilms(count);
+    public Collection<Film> getTopNPopularFilms(@RequestParam(required = false) Integer count) {
+        return filmStorage.getTopNPopularFilms(count);
     }
 
     private void validate(Film film) {
